@@ -296,8 +296,9 @@ any key combination.
 Order of Preference for Key Bindings
 ************************************
 
-Key bindings in a key map file are evaluated bottom-to-top. The first
-matching context wins.
+Key bindings in a key map file are evaluated
+from bottom to top.
+The first matching context wins.
 
 
 Keeping Key Maps Organized
