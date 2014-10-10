@@ -33,7 +33,7 @@ Structure of a Key Binding
 --------------------------
 
 Key maps are arrays of key bindings.
-This list presents all valid elements in a key bindings.
+This list presents all valid elements in a key binding.
 
 ``keys``
    An array of case-sensitive keys.
