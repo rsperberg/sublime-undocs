@@ -179,12 +179,26 @@ from being sent to the buffer.
 This is useful, for example,
 to emulate Vim's modal behavior.
 
+Key bindings not intended for command mode
+should include a context like this::
+
+    {"key": "setting.command_mode", "operand": false}
+
+This way, plugins legitimately using command mode
+will be able to define appropriate key bindings
+without interference.
+
 
 Bindable Keys
 *************
 
 Keys in key bindings may be specified
 literally or by name.
+
+.. XXX: Check this
+If using a name doesn't work in your case,
+try a literal value.
+
 Here's the list of all valid names:
 
 * ``up``
@@ -277,6 +291,13 @@ would be compromised.
 
 End-users are free to remap
 any key combination.
+
+
+Order of Preference for Key Bindings
+************************************
+
+Key bindings in a key map file are evaluated in reverse order. The first
+matching context wins.
 
 
 Keeping Key Maps Organized
