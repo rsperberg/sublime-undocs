@@ -10,38 +10,36 @@ File Format
 
 Key bindings are stored in ``.sublime-keymap`` files
 and defined in JSON.
-All key map filenames
-need to follow this pattern:
-``Default (<platform>).sublime-keymap``.
-Otherwise, Sublime Text will ignore them.
+Key map files may be located anywhere in a package.
 
 
-Platform-Specific Key Maps
---------------------------
+Naming Key Map Files
+--------------------
 
-Each platform gets its own key map:
+Each platform can optionally have its own key map:
 
 * ``Default (Windows).sublime-keymap``
 * ``Default (OSX).sublime-keymap``
 * ``Default (Linux).sublime-keymap``
 
-Separate key maps exist
-to abide by different vendor-specific
-`HCI <http://en.wikipedia.org/wiki/Human%E2%80%93computer_interaction>`_ guidelines.
+To have the key map applied in all platforms,
+name the file ``Default.sublime-keymap``.
+
+Sublime Text will ignore any ``.sublime-keymap``
+whose name doesn't follow the patterns just described.
 
 
 Structure of a Key Binding
 --------------------------
 
 Key maps are arrays of key bindings.
-Below you'll find valid elements in key bindings.
+This list presents all valid elements in a key bindings.
 
 ``keys``
-   An array of case-sensitive keys
-   to be pressed.
+   An array of case-sensitive keys.
    Modifiers can be specified
    with the ``+`` sign.
-   Chords are built
+   Chords can be built
    by adding elements to the array,
    e.g. ``["ctrl+k","ctrl+j"]``.
    Ambiguous chords are resolved
@@ -57,10 +55,9 @@ Below you'll find valid elements in key bindings.
    of parameters to ``command``.
 
 ``context``
-   Array of contexts to selectively
-   enable the key binding.
-   All contexts must be true
-   for the key binding to trigger.
+   Array of contexts
+   the key binding is restricted to.
+   All contexts are *AND*ed together.
    See :ref:`context-reference` below.
 
 Here's an example::
@@ -84,14 +81,16 @@ Structure of a Context
 
 ``operator``
    Type of test to perform against ``key``.
+   Defaults to ``equal``.
 
 ``operand``
-   Value against which the result of ``key`` is tested.
+   The result of ``key`` is tested against this value.
 
 ``match_all``
    Requires the test to succeed
    for all selections.
    Defaults to ``false``.
+
 
 Context Operands
 ^^^^^^^^^^^^^^^^
@@ -141,20 +140,21 @@ Context Operands
 
 ``text``
    Restricts the test
-   just to the selected text.
+   to the selected text.
 
 ``selector``
-   Returns the current scope.
+   Returns the name of the current scope.
 
 ``panel_has_focus``
    Returns ``true``
-   if the current focus
-   is on a panel.
+   if a panel
+   has input focus.
 
 ``panel``
    Returns ``true``
-   if the panel given as operand
+   if the panel given as ``operand``
    is visible.
+
 
 Context Operators
 ^^^^^^^^^^^^^^^^^
@@ -163,10 +163,10 @@ Context Operators
    Test for equality.
 
 ``regex_match``, ``not_regex_match``
-   Match against a regular expression.
+   Match against a regular expression (full match).
 
 ``regex_contains``, ``not_regex_contains``
-   Match against a regular expression (containment).
+   Match against a regular expression (partial match).
 
 
 
@@ -176,8 +176,8 @@ Command Mode
 Sublime Text provides a ``command_mode`` setting
 to prevent key presses
 from being sent to the buffer.
-This is useful
-when emulating Vim's modal behavior.
+This is useful, for example,
+to emulate Vim's modal behavior.
 
 
 Bindable Keys
@@ -185,7 +185,7 @@ Bindable Keys
 
 Keys in key bindings may be specified
 literally or by name.
-Here's the list of valid names:
+Here's the list of all valid names:
 
 * ``up``
 * ``down``
@@ -251,6 +251,7 @@ Here's the list of valid names:
 * ``browser_favorites``
 * ``browser_home``
 
+
 Modifiers
 ---------
 
@@ -258,6 +259,7 @@ Modifiers
 * ``ctrl``
 * ``alt``
 * ``super`` (Windows key, Command key...)
+
 
 Warning about Bindable Keys
 ---------------------------
@@ -273,9 +275,8 @@ the user's ability
 to insert non-ASCII characters
 would be compromised.
 
-If you are the end-user,
-you are free to remap
-those key combinations.
+End-users are free to remap
+any key combination.
 
 
 Keeping Key Maps Organized
@@ -284,13 +285,12 @@ Keeping Key Maps Organized
 Sublime Text ships with default key maps
 under ``Packages/Default``.
 Other packages may include
-their own key map files.
+key map files of their own.
 The recommended storage location
 for your personal key map is ``Packages/User``.
 
 See :ref:`merging-and-order-of-precedence`
-for information about
-how Sublime Text sorts files for merging.
+for information.
 
 
 International Keyboards
@@ -304,11 +304,15 @@ there might be a mismatch between the two.
 Troubleshooting
 ***************
 
-.. TODO: fix formatting for API cross-ref.
+To enable logging
+related to key maps, see:
 
-To enable command logging,
-see `sublime.log_commands(flag)`_.
+   - `sublime.log_commands(flag)`_.
+   - `sublime.log_input(flag)`_.
+
 This may help in
 debugging key maps.
 
-.. _sublime.log_commands(flag): http://www.sublimetext.com/docs/2/api_reference.html
+
+.. _sublime.log_commands(flag): http://www.sublimetext.com/docs/3/api_reference.html
+.. _sublime.log_input(flag): http://www.sublimetext.com/docs/3/api_reference.html
