@@ -260,6 +260,9 @@ This information is useful
 for emacs users who are
 now using Sublime Text.
 
+emacs is another popular
+programming editor.
+
 Sublime Text does not offer
 any built-in emacs emulation,
 but you can try third-party packages
